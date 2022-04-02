@@ -5,6 +5,7 @@ namespace KielD01\LaravelGoogleApi;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Str;
 
 abstract class Core
 {
@@ -23,8 +24,14 @@ abstract class Core
         $this->setKey();
 
         $this->client = new Client([
-            'base_uri' => $this->getBaseUri()
+            'base_uri' => $this->getBaseUri(),
+            'verify' => $this->getVerify()
         ]);
+    }
+
+    private function getVerify(): bool
+    {
+        return Str::is('production', config('app.env'));
     }
 
     protected function setBaseUri()

@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 abstract class Core
 {
     private Client $client;
-    private string $baseUriPattern = 'https://maps.googleapis.com/maps/api/{function}/json/';
+    private string $baseUriPattern = 'https://maps.googleapis.com/maps/api/{function}/';
     private string $baseUri;
     private string $key;
 

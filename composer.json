@@ -1,0 +1,20 @@
+{
+    "name": "kield-01/laravel-google-api",
+    "description": "Google APIs for Laravel",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "KielD01\\LaravelGoogleApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roman Kozin",
+            "email": "romanko95.rk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "8.*",
+        "laravel/laravel": "9.*"
+    }
+}

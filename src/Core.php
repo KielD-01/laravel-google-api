@@ -6,6 +6,7 @@ namespace KielD01\LaravelGoogleApi;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Str;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class Core
 {
@@ -83,8 +84,32 @@ abstract class Core
     /**
      * @throws GuzzleException
      */
-    public function getJsonResponse()
+    private function getJsonResponse()
     {
         $response = $this->client->get('/json', $this->getParameters() + ['key' => $this->getKey()]);
+
+        return $this->processJsonResponse($response);
+    }
+
+    private function processJsonResponse(ResponseInterface $response)
+    {
+        return json_decode($response->getBody()->getContents(), true, 512, 128);
+    }
+
+    /**
+     * ToDo : Process $result into decent object
+     *
+     * @return mixed
+     */
+    protected function result(): mixed
+    {
+        $responseTypes = [
+            'xml' => '',
+            'json' => 'getJsonResponse'
+        ];
+
+        $result = $this->{$responseTypes[config('google.response', 'json')]}();
+
+        return $result;
     }
 }

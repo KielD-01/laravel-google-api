@@ -86,7 +86,12 @@ abstract class Core
      */
     private function getJsonResponse()
     {
-        $response = $this->client->get('/json', $this->getParameters() + ['key' => $this->getKey()]);
+        $response = $this->client->get(
+            '/json',
+            [
+                'query' => $this->getParameters() + ['key' => $this->getKey()]
+            ]
+        );
 
         return $this->processJsonResponse($response);
     }

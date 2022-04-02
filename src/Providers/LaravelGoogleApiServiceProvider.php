@@ -12,7 +12,10 @@ class LaravelGoogleApiServiceProvider extends ServiceProvider
         $this->publishConfig();
     }
 
-    private function publishConfig() {
-
+    private function publishConfig()
+    {
+        $this->publishes([
+            __DIR__ . '/../../config/google.php' => config_path('google.php')
+        ], 'laravel-google-api-config');
     }
 }

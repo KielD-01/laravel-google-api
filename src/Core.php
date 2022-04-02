@@ -101,7 +101,7 @@ abstract class Core
      *
      * @return mixed
      */
-    protected function result(): mixed
+    public function result(): mixed
     {
         $responseTypes = [
             'xml' => '',

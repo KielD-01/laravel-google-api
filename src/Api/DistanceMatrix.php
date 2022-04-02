@@ -9,7 +9,7 @@ use KielD01\LaravelGoogleApi\Core;
 class DistanceMatrix extends Core
 {
     protected string $function = 'distancematrix';
-
+    protected string $apiKeyType = 'distance_matrix';
     protected array $destinations = [];
     protected array $origins = [];
 
@@ -47,5 +47,11 @@ class DistanceMatrix extends Core
         $this->destinations[] = $destination;
 
         return $this;
+    }
+
+    public function bindParameters(): void
+    {
+        $this->setParameter('origins', implode('|', $this->getOrigins()));
+        $this->setParameter('destinations', implode('|', $this->getDestinations()));
     }
 }

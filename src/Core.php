@@ -19,6 +19,8 @@ abstract class Core
     protected string $function;
     protected array $parameters = [];
 
+    protected string $resultClass;
+
     public function __construct()
     {
         $this->setBaseUri();
@@ -75,11 +77,13 @@ abstract class Core
         return $this->parameters;
     }
 
-    abstract protected function describeParameters(): void;
-
     abstract protected function validation(): bool;
 
     abstract protected function bindParameters(): void;
+
+    abstract protected function describeParameters(): void;
+
+    abstract protected function processResponse(array $result): Result;
 
     /**
      * @throws GuzzleException
@@ -105,18 +109,22 @@ abstract class Core
      * ToDo : Process $result into decent object
      *
      * @return mixed
+     * @uses \KielD01\LaravelGoogleApi\Core::getJsonResponse()
+     *
+     * @uses \KielD01\LaravelGoogleApi\Core::getXmlResponse()
      */
     public function result(): mixed
     {
         $responseTypes = [
-            'xml' => '',
+            'xml' => 'getXmlResponse',
             'json' => 'getJsonResponse'
         ];
 
         $this->bindParameters();
 
-        $result = $this->{$responseTypes[config('google.response', 'json')]}();
-
-        return $result;
+        return resolve(
+            $this->resultClass,
+            ['result' => $this->{$responseTypes[config('google.response', 'json')]}()]
+        );
     }
 }

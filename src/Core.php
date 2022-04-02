@@ -87,9 +87,9 @@ abstract class Core
     private function getJsonResponse()
     {
         $response = $this->client->get(
-            '/json',
+            'json',
             [
-                'query' => $this->getParameters() + ['key' => $this->getKey()]
+                'query' => array_merge($this->getParameters(), ['key' => $this->getKey()])
             ]
         );
 
@@ -112,6 +112,8 @@ abstract class Core
             'xml' => '',
             'json' => 'getJsonResponse'
         ];
+
+        $this->bindParameters();
 
         $result = $this->{$responseTypes[config('google.response', 'json')]}();
 

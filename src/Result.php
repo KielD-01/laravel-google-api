@@ -13,7 +13,7 @@ abstract class Result
         $this->processResult();
     }
 
-    private function setRawResult(array $result)
+    private function setRawResult(array $result): void
     {
         $this->rawResult = $result;
     }

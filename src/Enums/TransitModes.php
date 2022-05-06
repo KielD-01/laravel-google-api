@@ -16,6 +16,7 @@ final class TransitModes
         self::RAIL,
         self::TRAIN,
         self::TRAM,
+        self::SUBWAY
     ];
 
     public static function getAvailableTransitModes(): array

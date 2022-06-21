@@ -144,13 +144,7 @@ abstract class Core
         return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR | 128);
     }
 
-    private function resetParameters(): void
-    {
-        $this->parameters = [
-            'required' => [],
-            'optional' => []
-        ];
-    }
+    abstract protected function reset(): void;
 
     /**
      * @return mixed
@@ -173,7 +167,7 @@ abstract class Core
             ['result' => $this->{$responseTypes[config('google.response', 'json')]}()]
         );
 
-        $this->resetParameters();
+        $this->reset();
 
         return $result;
     }

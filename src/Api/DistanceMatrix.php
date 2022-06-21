@@ -63,4 +63,14 @@ class DistanceMatrix extends Core
     {
         return resolve(DistanceMatrixResult::class, compact('result'));
     }
+
+    protected function reset(): void
+    {
+        $this->origins = [];
+        $this->destinations = [];
+        $this->parameters = [
+            'required' => [],
+            'optional' => []
+        ];
+    }
 }

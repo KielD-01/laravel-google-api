@@ -7,12 +7,12 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelGoogleApiServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->publishConfig();
     }
 
-    private function publishConfig()
+    private function publishConfig(): void
     {
         $this->publishes([
             __DIR__ . '/../../config/google.php' => config_path('google.php')

@@ -5,12 +5,12 @@ namespace KielD01\LaravelGoogleApi\Enums;
 
 final class Avoid
 {
-    const FERRIES = 'ferries';
-    const HIGHWAYS = 'highways';
-    const INDOORS = 'indoors';
-    const TOLLS = 'tolls';
+    public const FERRIES = 'ferries';
+    public const HIGHWAYS = 'highways';
+    public const INDOORS = 'indoors';
+    public const TOLLS = 'tolls';
 
-    const AVAILABLE = [
+    public const AVAILABLE = [
         self::FERRIES,
         self::HIGHWAYS,
         self::INDOORS,

@@ -5,11 +5,11 @@ namespace KielD01\LaravelGoogleApi\Enums;
 
 final class TrafficModel
 {
-    const BEST_GUESS = 'best_guess';
-    const OPTIMISTIC = 'optimistic';
-    const PESSIMISTIC = 'pessimistic';
+    public const BEST_GUESS = 'best_guess';
+    public const OPTIMISTIC = 'optimistic';
+    public const PESSIMISTIC = 'pessimistic';
 
-    const AVAILABLE = [
+    public const AVAILABLE = [
         self::BEST_GUESS,
         self::OPTIMISTIC,
         self::PESSIMISTIC

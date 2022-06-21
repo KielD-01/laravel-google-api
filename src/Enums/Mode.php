@@ -5,11 +5,11 @@ namespace KielD01\LaravelGoogleApi\Enums;
 
 final class Mode
 {
-    const BICYCLING = 'bicycling';
-    const DRIVING = 'driving';
-    const WALKING = 'walking';
+    public const BICYCLING = 'bicycling';
+    public const DRIVING = 'driving';
+    public const WALKING = 'walking';
 
-    const AVAILABLE = [
+    public const AVAILABLE = [
         self::BICYCLING,
         self::DRIVING,
         self::WALKING

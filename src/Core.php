@@ -35,6 +35,8 @@ abstract class Core
             'base_uri' => $this->getBaseUri(),
             'verify' => $this->getVerify()
         ]);
+
+        $this->describeParameters();
     }
 
     private function getVerify(): bool
@@ -128,18 +130,18 @@ abstract class Core
             }
 
             forward_static_call([Cache::class, $isForeverCaching ? 'forever' : 'put'], ...$cachingArgs);
+
+            return $this->processJsonResponse($response);
         }
 
-        if (!isset($response)) {
-            throw new Exception(sprintf("No Response found for %s", $this->function));
-        }
-
-        return $this->processJsonResponse($response);
+        return $this->processJsonResponse(
+            $this->getClient()->get('json', compact('query'))
+        );
     }
 
     private function processJsonResponse(ResponseInterface $response)
     {
-        return json_decode($response->getBody()->getContents(), true, 512, 128);
+        return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR | 128);
     }
 
     /**
@@ -174,9 +176,8 @@ abstract class Core
         }
 
         if (is_array($cachingRule)) {
-            $this->setIsCachingEnabled(in_array(__CLASS__, $cachingRule));
+            $this->setIsCachingEnabled(in_array(__CLASS__, $cachingRule, true));
         }
-
     }
 
     protected function isCachingEnabled(): bool

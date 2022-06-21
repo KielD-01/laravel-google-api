@@ -5,13 +5,13 @@ namespace KielD01\LaravelGoogleApi\Enums;
 
 final class TransitModes
 {
-    const BUS = 'bus';
-    const RAIL = 'rail';
-    const SUBWAY = 'subway';
-    const TRAIN = 'train';
-    const TRAM = 'tram';
+    public const BUS = 'bus';
+    public const RAIL = 'rail';
+    public const SUBWAY = 'subway';
+    public const TRAIN = 'train';
+    public const TRAM = 'tram';
 
-    const AVAILABLE = [
+    public const AVAILABLE = [
         self::BUS,
         self::RAIL,
         self::TRAIN,

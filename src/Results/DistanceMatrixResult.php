@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace KielD01\LaravelGoogleApi\Results;
 
 use Illuminate\Support\Collection;
-use KielD01\LaravelGoogleApi\Result;
 use KielD01\LaravelGoogleApi\Objects\Address;
 use KielD01\LaravelGoogleApi\Objects\DistanceMatrixObject;
+use KielD01\LaravelGoogleApi\Result;
 
 /**
  * @property Address[] $destinationAddresses
@@ -30,13 +30,14 @@ class DistanceMatrixResult extends Result
             ->map(fn(string $destinationAddress) => new Address($destinationAddress));
 
         $this->distanceMatrixObjects = collect($resultData['rows'])
-            ->map(fn(array $elements) => collect($elements)
+            ->map(fn(array $row) => collect($row)
                 ->map(
-                    fn(array $element) => new DistanceMatrixObject(
-                        $element['distance'],
-                        $element['duration'],
-                        $element['statue']
-                    )
+                    fn(array $elements) => collect($elements)
+                        ->map(fn($element) => new DistanceMatrixObject(
+                            $element['distance'],
+                            $element['duration'],
+                            $element['status']
+                        ))
                 )
             );
 

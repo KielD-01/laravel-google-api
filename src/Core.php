@@ -144,6 +144,14 @@ abstract class Core
         return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR | 128);
     }
 
+    private function resetParameters(): void
+    {
+        $this->parameters = [
+            'required' => [],
+            'optional' => []
+        ];
+    }
+
     /**
      * @return mixed
      * @uses \KielD01\LaravelGoogleApi\Core::getJsonResponse()
@@ -160,10 +168,14 @@ abstract class Core
         $this->bindParameters();
         $this->sanitizeParameters();
 
-        return resolve(
+        $result = resolve(
             $this->resultClass,
             ['result' => $this->{$responseTypes[config('google.response', 'json')]}()]
         );
+
+        $this->resetParameters();
+
+        return $result;
     }
 
     private function checkIfCachingEnabled(): void

@@ -95,13 +95,13 @@ abstract class Core
     private function sanitizeParameters(): void
     {
         $allowedParameters = array_merge(
-            array_keys($this->parameters['required'] ?? []),
-            array_keys($this->parameters['optional'] ?? []),
+            $this->parameters['required'] ?? [],
+            $this->parameters['optional'] ?? [],
         );
 
         $forbiddenParameters = array_diff(
+            $allowedParameters,
             array_keys($this->getParameters()),
-            $allowedParameters
         );
 
         array_map(function (string|int $fp) {

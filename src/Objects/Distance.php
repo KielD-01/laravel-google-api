@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace KielD01\Objects;
+namespace KielD01\LaravelGoogleApi\Objects;
 
 /**
  * @property string $textDistance

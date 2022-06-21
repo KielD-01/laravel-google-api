@@ -5,8 +5,8 @@ namespace KielD01\LaravelGoogleApi\Results;
 
 use Illuminate\Support\Collection;
 use KielD01\LaravelGoogleApi\Result;
-use KielD01\Objects\Address;
-use KielD01\Objects\DistanceMatrixObject;
+use KielD01\LaravelGoogleApi\Objects\Address;
+use KielD01\LaravelGoogleApi\Objects\DistanceMatrixObject;
 
 /**
  * @property Address[] $destinationAddresses

@@ -1,6 +1,6 @@
 <?php
 
-namespace KielD01\Objects;
+namespace KielD01\LaravelGoogleApi\Objects;
 
 class DistanceMatrixObject
 {

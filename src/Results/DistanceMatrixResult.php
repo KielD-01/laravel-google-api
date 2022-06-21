@@ -29,23 +29,34 @@ class DistanceMatrixResult extends Result
         $this->originAddresses = collect($resultData['origin_addresses'])
             ->map(fn(string $destinationAddress) => new Address($destinationAddress));
 
-        $this->distanceMatrixObjects = collect($resultData['rows'])
-            ->map(fn(array $row) => collect($row)
-                ->map(
-                    fn(array $elements) => collect($elements)
-                        ->map(fn($element) => new DistanceMatrixObject(
-                            $element['distance'],
-                            $element['duration'],
-                            $element['status']
-                        ))
-                )
-            );
+        $this->distanceMatrixObjects = $this->makeDistanceMatrixObjects($resultData['rows']);
 
         $this->result = collect([
             'distanceMatrixObjects' => $this->getDistanceMatrixObjects(),
             'destinationAddresses' => $this->getDestinationAddresses(),
             'originAddresses' => $this->getOriginAddresses()
         ]);
+    }
+
+    private function makeDistanceMatrixObjects(array $rows = []): Collection
+    {
+        $items = collect();
+
+        collect($rows)
+            ->each(function (array $row) use (&$items) {
+                collect($row['elements'])
+                    ->each(function (array $element) use (&$items) {
+                        $items->push(
+                            new DistanceMatrixObject(
+                                $element['distance'],
+                                $element['duration'],
+                                $element['status']
+                            )
+                        );
+                    });
+            });
+
+        return $items;
     }
 
     public function getDestinationAddresses(): Collection
